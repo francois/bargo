@@ -7,8 +7,8 @@ Application.boot(:logger) do
 
   start do
     logger = ::Logger.new(STDERR)
-    logger.formatter = ->(timestamp, severity, appname, msg) do
-      "[%-8.8s] [%6d] %-6.6s - %s\n" % [appname, Thread.current.object_id, severity, msg]
+    logger.formatter = ->(severity, timestamp, _appname, msg) do
+      "%19.19s.%s [%s] %-5.5s - %s\n" % [timestamp.iso8601, timestamp.nsec.to_s[0, 3], Thread.current.object_id.to_s[-5..-1], severity, msg]
     end
 
     register(:logger, logger)
