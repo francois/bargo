@@ -4,11 +4,7 @@ require "dry/system/container"
 
 class Application < Dry::System::Container
   configure do |config|
-    # Fails with TypeError
-    config.root = Pathname(".")
-
-    # Succeeds
-    # config.root = Pathname(".").realpath.to_s
+    config.root = Pathname(".").realpath
 
     # we set "lib" relative to `root` as a path which contains class definitions
     # that can be auto-registered
